@@ -1,0 +1,13 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.calculator{
+  width: 100%;
+}
+
+td{
+  text-align: center;
+  border: 1px solid black;
+}
