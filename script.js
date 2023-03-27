@@ -13,6 +13,12 @@ function handleBtnClick(e) {
   updateUI(buttonClicked);
 }
 
+//! function to update the UI on button clicks
 function updateUI(input) {
-  inputTag.value += input;
+  if (input !== "=" && input !== "<") {
+    inputTag.value += input; // value attribute is being accessed
+  } else {
+    null;
+  }
+  // need to make a condition to check if the current input and previous input are symbols or not
 }
