@@ -15,19 +15,21 @@ function handleBtnClick(e) {
 
 //! function to update the UI on button clicks
 function updateUI(input) {
+  // input is button clicked node
   if (input === "=") {
     null;
   } else if (input === "<") {
-    null;
+    const updatedValue = backSpaceFunc(inputTag.value);
+    inputTag.value = updatedValue;
   } else if (["+", "-", "×", "÷"].some((opprend) => opprend === input)) {
-    console.log("opprend is accessed");
+    console.log("operand is accessed");
     if (
-      inputTag.value.includes("+") ||
+      inputTag.value.includes("+") || // 'includes' is used to check within a string and 'some' is higher order array method
       inputTag.value.includes("-") ||
       inputTag.value.includes("×") ||
       inputTag.value.includes("÷")
     ) {
-      null;
+      window.alert("Operand limit exceeded.");
     } else {
       inputTag.value += input;
     }
@@ -35,4 +37,8 @@ function updateUI(input) {
     inputTag.value += input; // value attribute is being accessed
   }
   // need to make a condition to check if the current input and previous input are symbols or not
+}
+
+function backSpaceFunc(inputValue) {
+  return inputValue.slice(0, inputValue.length - 1);
 }
