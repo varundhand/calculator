@@ -17,15 +17,17 @@ function handleBtnClick(e) {
 let operand;
 
 //! function to update the UI on button clicks
-function updateUI(input) {
-  // input is button clicked node
-  if (input === "=") {
+function updateUI(buttonClicked) {
+  // input is button clicked string
+  if (buttonClicked === "=") {
     const finalAnswer = calculation(inputTag.value); // TODO : make final calculation function here
     inputTag.value = finalAnswer;
-  } else if (input === "<") {
+  } else if (buttonClicked === "<") {
     const updatedValue = backSpaceFunc(inputTag.value);
     inputTag.value = updatedValue;
-  } else if (["+", "-", "×", "÷"].some((opprend) => opprend === input)) {
+  } else if (
+    ["+", "-", "×", "÷"].some((opprend) => opprend === buttonClicked)
+  ) {
     console.log("operand is accessed");
     if (
       inputTag.value.includes("+") || // 'includes' is used to check within a string and 'some' is higher order array method
@@ -35,11 +37,11 @@ function updateUI(input) {
     ) {
       window.alert("Operand limit exceeded.");
     } else {
-      inputTag.value += input;
-      operand = input; // the operand used is assigned in global scope
+      inputTag.value += buttonClicked;
+      operand = buttonClicked; // the operand used is assigned in global scope
     }
   } else {
-    inputTag.value += input; // value attribute is being accessed
+    inputTag.value += buttonClicked; // value attribute is being accessed
   }
   // need to make a condition to check if the current input and previous input are symbols or not
 }
@@ -69,3 +71,49 @@ function clearInput() {
     console.log("there is not input yet");
   }
 }
+
+//! function for key binding
+document.addEventListener("keydown", (event) => {
+  // event is the keyboard event which is triggered/clicked
+  // console.log(event);
+  if (event.keyCode === 48) {
+    // alter: e.key.toLowerCase()==='u'
+    updateUI("0");
+  } else if (event.keyCode === 49) {
+    updateUI("1");
+  } else if (event.keyCode === 50) {
+    updateUI("2");
+  } else if (event.keyCode === 51) {
+    updateUI("3");
+  } else if (event.keyCode === 52) {
+    updateUI("4");
+  } else if (event.keyCode === 53) {
+    updateUI("5");
+  } else if (event.keyCode === 54) {
+    updateUI("6");
+  } else if (event.shiftKey && event.keyCode === 56) {
+    //! this needs to be above 8's keycode operation because the code runs from top to bottom and it would execute 8's condition before this.
+    updateUI("×");
+  } else if (event.keyCode === 55) {
+    updateUI("7");
+  } else if (event.keyCode === 56) {
+    updateUI("8");
+  } else if (event.keyCode === 57) {
+    updateUI("9");
+  } else if (event.shiftKey && event.keyCode === 187) {
+    updateUI("+");
+  } else if (event.keyCode === 189) {
+    updateUI("-");
+  } else if (event.keyCode === 191) {
+    updateUI("÷");
+  } else if (event.keyCode === 13) {
+    const finalAnswer2 = calculation(inputTag.value);
+    inputTag.value = finalAnswer2;
+  } else if (event.keyCode === 8) {
+    // backspace
+    null;
+  } else if (event.keyCode === 27) {
+    // esc
+    null;
+  }
+});
