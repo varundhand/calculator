@@ -1,5 +1,6 @@
 const buttonsNodes = document.querySelectorAll("li");
 const inputTag = document.querySelector("input");
+const clearBtn = document.querySelector("button");
 
 buttonsNodes.forEach((button) => {
   button.addEventListener("click", handleBtnClick);
@@ -13,11 +14,14 @@ function handleBtnClick(e) {
   updateUI(buttonClicked);
 }
 
+let operand;
+
 //! function to update the UI on button clicks
 function updateUI(input) {
   // input is button clicked node
   if (input === "=") {
-    null;
+    const finalAnswer = calculation(inputTag.value); // TODO : make final calculation function here
+    inputTag.value = finalAnswer;
   } else if (input === "<") {
     const updatedValue = backSpaceFunc(inputTag.value);
     inputTag.value = updatedValue;
@@ -32,6 +36,7 @@ function updateUI(input) {
       window.alert("Operand limit exceeded.");
     } else {
       inputTag.value += input;
+      operand = input; // the operand used is assigned in global scope
     }
   } else {
     inputTag.value += input; // value attribute is being accessed
@@ -41,4 +46,26 @@ function updateUI(input) {
 
 function backSpaceFunc(inputValue) {
   return inputValue.slice(0, inputValue.length - 1);
+}
+
+function calculation(numbers) {
+  const splitNumbers = numbers.split(operand);
+  if (operand === "+") {
+    return splitNumbers[0] + splitNumbers[1];
+  } else if (operand === "-") {
+    return splitNumbers[0] - splitNumbers[1];
+  } else if (operand === "×") {
+    return splitNumbers[0] * splitNumbers[1];
+  } else {
+    // for divide
+    return splitNumbers[0] / splitNumbers[1];
+  }
+}
+
+function clearInput() {
+  if (inputTag) {
+    inputTag.value = "";
+  } else {
+    console.log("there is not input yet");
+  }
 }
