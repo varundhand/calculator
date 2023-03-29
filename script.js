@@ -51,26 +51,29 @@ function backSpaceFunc(inputValue) {
 }
 
 function calculation(numbers) {
+  console.log(numbers);
   const splitNumbers = numbers.split(operand);
   if (operand === "+") {
-    return splitNumbers[0] + splitNumbers[1];
+    console.log(splitNumbers);
+    return parseInt(splitNumbers[0]) + parseInt(splitNumbers[1]);
   } else if (operand === "-") {
-    return splitNumbers[0] - splitNumbers[1];
+    return parseInt(splitNumbers[0]) - parseInt(splitNumbers[1]);
   } else if (operand === "×") {
-    return splitNumbers[0] * splitNumbers[1];
+    return parseInt(splitNumbers[0]) * parseInt(splitNumbers[1]);
   } else {
     // for divide
-    return splitNumbers[0] / splitNumbers[1];
+    return parseInt(splitNumbers[0]) / parseInt(splitNumbers[1]);
   }
 }
 
 function clearInput() {
-  if (inputTag) {
+  if (inputTag.value) {
     inputTag.value = "";
   } else {
     console.log("there is not input yet");
   }
 }
+12;
 
 //! function for key binding
 document.addEventListener("keydown", (event) => {
@@ -107,13 +110,19 @@ document.addEventListener("keydown", (event) => {
   } else if (event.keyCode === 191) {
     updateUI("÷");
   } else if (event.keyCode === 13) {
+    //! Bug 1: enter btn clicked messes up the code
+    // console.log(event);
+    // console.log(inputTag.value);
     const finalAnswer2 = calculation(inputTag.value);
+    console.log(finalAnswer2);
+    clearInput();
     inputTag.value = finalAnswer2;
+    // updateUI(finalAnswer2)
   } else if (event.keyCode === 8) {
-    // backspace
-    null;
+    const backspaced = backSpaceFunc(inputTag.value);
+    clearInput();
+    updateUI(backspaced);
   } else if (event.keyCode === 27) {
-    // esc
-    null;
+    clearInput();
   }
 });
