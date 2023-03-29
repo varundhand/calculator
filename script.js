@@ -110,14 +110,9 @@ document.addEventListener("keydown", (event) => {
   } else if (event.keyCode === 191) {
     updateUI("÷");
   } else if (event.keyCode === 13) {
-    //! Bug 1: enter btn clicked messes up the code
-    // console.log(event);
-    // console.log(inputTag.value);
     const finalAnswer2 = calculation(inputTag.value);
-    console.log(finalAnswer2);
     clearInput();
-    inputTag.value = finalAnswer2;
-    // updateUI(finalAnswer2)
+    updateUI(finalAnswer2.toString());
   } else if (event.keyCode === 8) {
     const backspaced = backSpaceFunc(inputTag.value);
     clearInput();
